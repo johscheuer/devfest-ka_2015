@@ -1,17 +1,13 @@
-frontend:
-  image: johscheuer/todo-frontend
-  links:
-   - todoapp
-  ports:
-   - "80"
 todoapp:
-  image: johscheuer/todo-app:v1
+  image: johscheuer/todo-app-web
   links:
-   - redisMaster
-   - redisSlave
-redisSlave:
+   - redismaster:redis-master
+   - redisslave:redis-slave
+  ports:
+   - "3000:3000"
+redisslave:
   image: johscheuer/redis-slave:v1
   links:
-   - redisMaster
-redisMaster:
+   - redismaster
+redismaster:
   image: redis
