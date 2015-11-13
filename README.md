@@ -129,4 +129,7 @@ kubectl get rc
 
 # Show logs from the Redis Master
 kubectl logs -f {pod id}
+
+# Make a rolling update without downtime
+kubectl rolling-update todo-app-web todo-app-web-v2 --image=johscheuer/todo-app-web:k8s_v2
 ```
