@@ -38,7 +38,6 @@ $(document).ready(function() {
 
   $("#todo-submit").click(handleSubmission);
   $("#todo-delete").click(handleDeletion);
-  $("#host-address").append(document.URL);
 
   // Poll every second.
   (function fetchTodos() {
