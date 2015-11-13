@@ -106,21 +106,21 @@ kubectl get namespaces
 export CONTEXT=$(kubectl config view | grep current-context | awk '{print $2}')
 kubectl config set-context $CONTEXT --namespace=todo-app
 # Start the Redis Master Replication Controller
-kubectl create -f ./todo-app/redis-master-controller.json
+kubectl create -f ./todo-app/redis-master-controller.yml
 # Start the Redis Master service
-kubectl create -f ./todo-app/redis-master-service.json
+kubectl create -f ./todo-app/redis-master-service.yml
 # Check if the Redis Master is already created
 kubectl get pods
 # Start the Redis Slave Replication Controller
-kubectl create -f ./todo-app/redis-slave-controller.json
+kubectl create -f ./todo-app/redis-slave-controller.yml
 # Start the Redis Slave service
-kubectl create -f ./todo-app/redis-slave-service.json
+kubectl create -f ./todo-app/redis-slave-service.yml
 # Check if the Redis Slave is already created
 kubectl get pods
 # Start the Redis Slave Replication Controller
-kubectl create -f ./todo-app/todo-app-web-controller.json
+kubectl create -f ./todo-app/todo-app-web-controller.yml
 # Start the Redis Slave service
-kubectl create -f ./todo-app/todo-app-web-service.json
+kubectl create -f ./todo-app/todo-app-web-service.yml
 # Check if the Todo App is already created
 kubectl get pods -l name=todo-app-web
 # Validate everything
@@ -131,5 +131,5 @@ kubectl get rc
 kubectl logs -f {pod id}
 
 # Make a rolling update without downtime
-kubectl rolling-update todo-app-web todo-app-web-v2 --image=johscheuer/todo-app-web:k8s_v2
+kubectl rolling-update todo-app-web --image=johscheuer/todo-app-web:k8s_v2 --update-period="30s"
 ```
