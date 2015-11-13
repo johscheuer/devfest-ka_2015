@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Google Container Engine</title>
+
+		<meta name="description" content="Google Container Engine">
+		<meta name="author" content="Johannes M. Scheuermannk">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/inovex.css" id="theme">
+		<!-- Font -->
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section style="text-align:center">
+					<img src="./lib/graphics/inovex.svg" width ="30%" style="margin-bottom:2em">
+					<h1>Google Container Engine</h1>
+					<h3>Johannes M. Scheuermann</h3>
+					<aside class="notes" data-markdown>
+					- interactive disscussion about SDDC
+					- how much is reality how much is a little bit fiction or future
+					- Where they work Sysadmin
+					- Developer
+					- None of the above
+			    </aside>
+				</section>
+
+				<section>
+					<h2>Johannes M. Scheuermann</h2>
+					<p>
+						<ul>
+							<li>KIT & Working student</li>
+							<li>IT Engineering & Operations @inovex</li>
+							<li>Working with new data center technologies</li>
+							<li>@johscheuer</li>
+						</ul>
+					</p>
+					<aside class="notes" data-markdown>
+			    </aside>
+				</section>
+
+				<section data-background="./lib/graphics/contaner-titel.jpg" data-background-transition="slide">
+					<div class="single-image">
+						<h2>Containers</h2>
+					</div>
+					<aside class="notes" data-markdown>
+						- Simple isolation
+						- Functionallity similiar to VM's
+						- Light weight
+						- Fast
+						- Package dependencies
+						- Simple deployment
+	        </aside>
+				</section>
+
+				<section>
+					<figure>
+						<img src="./lib/graphics/docker.png" style="width: 100%; display:block; margin:auto"/>
+					</figure>
+					<aside class="notes" data-markdown>
+						- Most known Container tool
+						- Has own Deployment tools like machine, swarm, compose
+						- Swarm production ready can be used to roll out other cluster scheduler
+						- Not as smart as Kubernetes or Mesos
+	        </aside>
+				</section>
+
+				<section data-background="./lib/graphics/dev_challenge.jpg" data-background-transition="slide">
+					<div class="single-image">
+						<h2>Simple Dev setup</h2>
+					</div>
+					<aside class="notes" data-markdown>
+						- Dev's like Docker because fast Dev env
+						- Run fast test
+						- Spin up in some seconds
+						- Better/Faster than VM's like vagrant
+						- Widely used in Dev
+	        </aside>
+				</section>
+
+				<section>
+					<figure>
+						<img src="./lib/graphics/kubernetes.png" style="width: 65%; display:block; margin:auto"/>
+					</figure>
+					<aside class="notes" data-markdown>
+						- Greek for pilot or helmsman of a ship
+						- Open Source cluster manager from Google
+						- Managing containerized applications across a cluster of nodes
+						- Easy Service deployments, updates and (auto) scalability
+						- Compute resource limits
+						- Object count limits (later)
+						- namespaces (logical speration)
+	        </aside>
+				</section>
+
+				<section>
+					<h2>Pods</h2>
+					<figure>
+						<img src="./lib/graphics/Pod_k8s.jpg" style="width: 80%; display:block; margin:auto"/>
+					</figure>
+					<aside class="notes" data-markdown>
+						- Group of containters
+						- Share Resources e.q. CPU/Storage/Network
+						- Can communicate over localhost
+						- Defined in an template file
+						- Kubernetes Scheduler sched. on nodes
+						- Reusable Unit
+						- Repeatable deployment
+	        </aside>
+				</section>
+
+				<section>
+					<h2>Replication Controller</h2>
+					<figure>
+						<img src="./lib/graphics/Replication_Controller_k8s.jpg" style="width: 100%; display:block; margin:auto"/>
+					</figure>
+					<aside class="notes" data-markdown>
+						- Logical unit
+						- Keeps the desired number of pods running
+						- Can scale Pods
+						- Can restart pods
+						- Fine graned scaling
+						- Direct controll to number of running Pods
+						- Lifecycle management of containers
+	        </aside>
+				</section>
+
+				<section>
+					<h2>Service</h2>
+					<figure>
+						<img src="./lib/graphics/Service_k8s.jpg" style="width: 65%; display:block; margin:auto"/>
+					</figure>
+					<aside class="notes" data-markdown>
+						- Stable address
+						- Decoupled from Controller
+						- Independent from Client implementation
+						- Allows dynamic port mapping on the client/pod
+						- Enable to find and consume services
+	        </aside>
+				</section>
+
+				<section data-background="./lib/graphics/google-cloud.jpg" data-background-transition="slide">
+					<div class="single-image">
+						<h2>Google Container Engine</h2>
+					</div>
+					<aside class="notes" data-markdown>
+						- Imagine Startup create Idea
+						- No time/know-how for Operations part
+						- Let's do it in the cloud
+						- Simple Setup (just some minutes)
+						- Container Registry
+						- Kubernetes
+						- docker
+						- CoreOS
+	        </aside>
+				</section>
+
+				<section data-background="./lib/graphics/fun_part.jpg" data-background-transition="slide">
+					<div class="single-image">
+					</div>
+					<aside class="notes" data-markdown>
+						- Actually we only want the fun part
+						- We don't care how to setup a cluster
+						- Not really fun to setup up
+						- Own registry
+						- Need own Hardware or setup in the cloud -> why not GKE?
+	        </aside>
+				</section>
+
+				<section data-background="./lib/graphics/idea.jpg" data-background-transition="slide">
+					<div class="single-image">
+					</div>
+					<aside class="notes" data-markdown>
+						- Great idea
+						- Built a small todo App
+						- Make it accessable over the internet
+						- Only Developer don't care about ops
+	        </aside>
+				</section>
+
+				<section>
+					<h2>Components</h2>
+					<figure>
+						<img src="./lib/graphics/todo-app-architecture.jpg" style="width: 65%; display:block; margin:auto"/>
+					</figure>
+					<aside class="notes" data-markdown>
+						- Simple architecture
+						- Go as webserver and middleware in one Container
+						- Container for Redis Master and Redis Slaves
+	        </aside>
+				</section>
+
+				<section>
+					<h2>Logical architecture in K8s</h2>
+					<figure>
+						<img src="./lib/graphics/logical-architecture.jpg" style="width: 65%; display:block; margin:auto"/>
+					</figure>
+					<aside class="notes" data-markdown>
+
+					</aside>
+				</section>
+
+				<section data-background="./lib/graphics/caution.jpg" data-background-transition="slide">
+					<div class="single-image">
+						<h2>Live Demo</h2>
+					</div>
+					<aside class="notes" data-markdown>
+
+	        </aside>
+				</section>
+
+				<section data-background="./lib/graphics/karlsruhe.png" data-background-transition="slide">
+					<div class="goodbye">
+					<h2>Thank you!</h2>
+					<p>Johannes M. Scheuermann<br/>IT Engineering & Operations</p>
+					<p>inovex GmbH<br/>Office Karlsruhe <br/>Ludwig-Erhard-Allee 6<br/>76131 Karlsruhe</p>
+					<p>Mail: johannes.scheuermann@inovex.de</p>
+					</div>
+				</section>
+
+				<section>
+					<h2>Images</h2>
+					<p>
+						<ul>
+							<li>3 - https://flic.kr/p/5MQQVH</li>
+							<li>10 - https://flic.kr/p/d2hjzJ</li>
+							<li>11 - https://flic.kr/p/6sfakm</li>
+							<li>12 - https://flic.kr/p/6LiT8C</li>
+							<li>15 - https://flic.kr/p/crTsSh</li>
+						</ul>
+					</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				overview: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+			Reveal.configure({ slideNumber: 'c / t' });
+		</script>
+
+	</body>
+</html>

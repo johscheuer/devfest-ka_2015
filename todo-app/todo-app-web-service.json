@@ -1,0 +1,23 @@
+{
+   "kind":"Service",
+   "apiVersion":"v1",
+   "metadata":{
+      "name":"todo-app-web",
+      "labels":{
+         "name":"todo-app-web"
+      }
+   },
+   "spec":{
+      "ports": [
+        {
+          "port":80,
+          "targetPort":3000,
+          "protocol":"TCP"
+        }
+      ],
+      "selector":{
+         "name":"todo-app-web"
+      },
+      "type": "LoadBalancer"
+   }
+}

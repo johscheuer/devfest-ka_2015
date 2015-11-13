@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo "Start redis slave $REDISMASTER_PORT_6379_TCP_ADDR $REDISMASTER_PORT_6379_TCP_PORT"
+echo "Start redis slave redmis-master 6379"
 
-redis-server --slaveof $REDISMASTER_PORT_6379_TCP_ADDR $REDISMASTER_PORT_6379_TCP_PORT
+redis-server --slaveof redis-master 6379

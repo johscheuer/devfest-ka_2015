@@ -20,7 +20,7 @@ $(document).ready(function() {
 
     entryContentElement.val("")
     entryContentElement.parent().removeClass("has-error").addClass("has-success");
-    $.getJSON("insert/todo/" + entryValue, appendGuestbookEntries);
+    $.getJSON("insert/todo/" + entryValue, appendTodoList);
   }
 
   var handleDeletion = function(e){
@@ -32,7 +32,7 @@ $(document).ready(function() {
        continue
      }
      var checkbox = checkboxes[i];
-     $.getJSON("delete/todo/" + $(checkbox).closest('tr').text(), appendGuestbookEntries);
+     $.getJSON("delete/todo/" + $(checkbox).closest('tr').text(), appendTodoList);
     }
   }
 

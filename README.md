@@ -1,9 +1,8 @@
-# Intro
-
-# Running an application on GKE
+# Introduction to the Google Container Engine
 ## Setup a GKE Cluster
 
 ```Bash
+https://cloud.google.com/sdk/#Quick_Start
 # Create account.. Fetch gcloud SDK
 gcloud components update kubectl
 
@@ -11,25 +10,29 @@ gcloud components update kubectl
 gcloud config set project PROJECT
 
 # Select a Zone e.q. gcloud compute zones list
-gcloud config set compute/zone ZONE
+gcloud config set compute/zone europe-west1-d
 
-# Falls schon ein Cluster erstellt wurde:
-gcloud config set container/cluster CLUSTER_NAME gcloud container clusters get-credentials CLUSTER_NAME
+# Create the cluster called "devfest-ka15" (takes some time)
+gcloud container clusters create devfest-ka15 \\
+--num-nodes 3 \\
+--machine-type n1-standard-1 \\
+--password mYs3cred \\
+--username devfest-ka15
 
-# Oder jetzt ein cluster erstellen :)
-gcloud container clusters create my-cluster \
---num-nodes 3 \     
---machine-type g1-small
+# Check the created instances
+gcloud compute instances list
 
-# Und zum Abschluss das Ganze nocheinmal prüfen
-gcloud config list kubectl get nodes #liefert alle nodes
+# Now we set the cluster:
+gcloud config set container/cluster devfest-ka15
+gcloud container clusters get-credentials devfest-ka15
 ```
 
 ## List all services and Pods
 
 ```Bash
+# Get all Services
 kubectl get --all-namespaces services
-...
+# Get all Pods
 kubectl get --all-namespaces pods
 ```
 
@@ -44,24 +47,14 @@ cd $GOPATH/src/github.com/johscheuer/go-hello-webserver
 GOOS=linux CGO_ENABLED=0 go build -a -x -o hello-webserver
 ```
 
-### Complete with docker
-
-```Bash
-export PROJECT_ID="xxx-xxx-xxx"
-docker-machine create --driver virtualbox default
-eval "$(docker-machine env default)"
-
-git clone Https://github.com/johscheuer/go-hello-webserver.git
-cd go-hello-webserver
-
-docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp -e GOOS=linux -e CGO_ENABLED=0 golang:1.5.0-cross go build -v -a -x -o hello-webserver
-```
-
 ### Build an container image for GKE
 #### On Mac
 
 ```Bash
-docker-machine create --driver virtualbox default eval "$(docker-machine env default)"
+# Only if you don't have a default VM
+docker-machine create --driver virtualbox default
+# Set env variables
+eval "$(docker-machine env default)"
 
 # Build the image
 docker build -t gcr.io/${PROJECT_ID}/hello-webserver .
@@ -78,11 +71,19 @@ gcloud docker push gcr.io/${PROJECT_ID}/hello-webserver
 # Run the image from commandline
 kubectl run hello-webserver --image=gcr.io/${PROJECT_ID}/hello-webserver --port=8000
 
-# Validate
-kubectl get pods kubectl get rc kubectl describe rc hello-webserver kubectl describe pods hello-webserver
+# See the if the pod is running
+kubectl get pods
+# Check the Replication Controller
+kubectl get rc
+# Get more details about the Replication Controller
+kubectl describe rc hello-webserver
+# Get more details about the Pod(s)
+kubectl describe pods hello-webserver
 
 # Make the pod(s) accessable
-kubectl expose rc hello-webserver --create-external-load-balancer=true kubectl get services
+kubectl expose rc hello-webserver --create-external-load-balancer=true
+# Fetch the public IP address
+kubectl get services
 
 # Tmux -> watch the external loadbalancer
 # then scale the application
@@ -90,14 +91,42 @@ kubectl expose rc hello-webserver --create-external-load-balancer=true kubectl g
 kubectl scale rc hello-webserver --replicas=3
 
 # remove everything
-kubectl delete services hello-webserver kubectl stop rc hello-webserver
+kubectl delete services hello-webserver
+kubectl stop rc hello-webserver
 ```
 
-## Useful commandos
+## Todo Web App
 
 ```Bash
-# List all compute instances
-gcloud compute instances list
-# List all kube-system services
-kubectl get services --namespace=kube-system
+# Create a new name space
+kubectl create -f ./todo-app/web-app-namespace.yml
+# Show all namespaces
+kubectl get namespaces
+# Set the new context to use the namespace
+export CONTEXT=$(kubectl config view | grep current-context | awk '{print $2}')
+kubectl config set-context $CONTEXT --namespace=todo-app
+# Start the Redis Master Replication Controller
+kubectl create -f ./todo-app/redis-master-controller.json
+# Start the Redis Master service
+kubectl create -f ./todo-app/redis-master-service.json
+# Check if the Redis Master is already created
+kubectl get pods
+# Start the Redis Slave Replication Controller
+kubectl create -f ./todo-app/redis-slave-controller.json
+# Start the Redis Slave service
+kubectl create -f ./todo-app/redis-slave-service.json
+# Check if the Redis Slave is already created
+kubectl get pods
+# Start the Redis Slave Replication Controller
+kubectl create -f ./todo-app/todo-app-web-controller.json
+# Start the Redis Slave service
+kubectl create -f ./todo-app/todo-app-web-service.json
+# Check if the Todo App is already created
+kubectl get pods -l name=todo-app-web
+# Validate everything
+kubectl get svc
+kubectl get rc
+
+# Show logs from the Redis Master
+kubectl logs -f {pod id}
 ```

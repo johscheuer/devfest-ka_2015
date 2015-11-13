@@ -1,13 +1,13 @@
 todoapp:
-  image: johscheuer/todo-app-web
+  image: johscheuer/todo-app-web:k8s
   links:
    - redismaster:redis-master
    - redisslave:redis-slave
   ports:
    - "3000:3000"
 redisslave:
-  image: johscheuer/redis-slave:v1
+  image: johscheuer/redis-slave:k8s
   links:
-   - redismaster
+   - redismaster:redis-master
 redismaster:
   image: redis

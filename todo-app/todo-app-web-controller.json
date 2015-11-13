@@ -1,0 +1,45 @@
+{
+   "kind":"ReplicationController",
+   "apiVersion":"v1",
+   "metadata":{
+      "name":"todo-app-web",
+      "labels":{
+         "name":"todo-app-web"
+      }
+   },
+   "spec":{
+      "replicas":3,
+      "selector":{
+         "name":"todo-app-web"
+      },
+      "template":{
+         "metadata":{
+            "labels":{
+               "name":"todo-app-web"
+            }
+         },
+         "spec":{
+            "containers":[
+               {
+                  "name":"todo-app-web",
+                  "image":"johscheuer/todo-app-web:k8s",
+                  "ports":[
+                     {
+                        "containerPort":3000,
+                        "protocol":"TCP"
+                     }
+                  ],
+                  "livenessProbe": {
+                    "httpGet": {
+                      "path": "/health",
+                      "port": 3000
+                    },
+                    "initialDelaySeconds": 30,
+                    "timeoutSeconds": 1
+                  }
+               }
+            ]
+         }
+      }
+   }
+}
