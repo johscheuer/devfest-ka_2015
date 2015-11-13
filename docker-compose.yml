@@ -1,5 +1,5 @@
 todoapp:
-  image: johscheuer/todo-app-web:k8s
+  image: johscheuer/todo-app-web:k8s_v2
   links:
    - redismaster:redis-master
    - redisslave:redis-slave

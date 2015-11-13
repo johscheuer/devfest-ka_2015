@@ -9,5 +9,5 @@ CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o bin/todo-app .
 # Create the Docker image
 docker build -t johscheuer/todo-app-web .
 # Tag the image
-docker tag -f johscheuer/todo-app-web johscheuer/todo-app-web:k8s
+docker tag -f johscheuer/todo-app-web johscheuer/todo-app-web:k8s_v2
 ```
