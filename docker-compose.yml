@@ -1,5 +1,5 @@
 todoapp:
-  image: johscheuer/todo-app-web:k8s_v2
+  image: johscheuer/todo-app-web:k8s
   links:
    - redismaster:redis-master
    - redisslave:redis-slave
@@ -11,3 +11,6 @@ redisslave:
    - redismaster:redis-master
 redismaster:
   image: redis
+  command: redis-server --appendonly yes
+  volumes:
+   - /tmp:/data

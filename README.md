@@ -13,10 +13,10 @@ gcloud config set project PROJECT
 gcloud config set compute/zone europe-west1-d
 
 # Create the cluster called "devfest-ka15" (takes some time)
-gcloud container clusters create devfest-ka15 \\
---num-nodes 3 \\
---machine-type n1-standard-1 \\
---password mYs3cred \\
+gcloud container clusters create devfest-ka15 \
+--num-nodes 3 \
+--machine-type n1-standard-1 \
+--password mYs3cred \
 --username devfest-ka15
 
 # Check the created instances
@@ -62,7 +62,9 @@ docker build -t gcr.io/${PROJECT_ID}/hello-webserver .
 # Push the image to the registry
 gcloud docker push gcr.io/${PROJECT_ID}/hello-webserver
 
-# Registry is not secured everybody who has the project ID and knows the container name can access the images
+# Registry is not secured
+# everybody who has the project ID
+# and knows the container name can access the images
 ```
 
 ### Run your application on the GKE cluster
@@ -96,6 +98,7 @@ kubectl stop rc hello-webserver
 ```
 
 ## Todo Web App
+### Running the application
 
 ```Bash
 # Create a new name space
@@ -126,10 +129,23 @@ kubectl get pods -l name=todo-app-web
 # Validate everything
 kubectl get svc
 kubectl get rc
+kubectl get endpoints
 
 # Show logs from the Redis Master
 kubectl logs -f {pod id}
 
 # Make a rolling update without downtime
 kubectl rolling-update todo-app-web --image=johscheuer/todo-app-web:k8s_v2 --update-period="30s"
+```
+
+## Cleanup
+
+```Bash
+# Stop all services
+kubectl delete -f ./todo-app
+# Default services
+kubectl delete --namespace="default" services hello-webserver
+kubectl stop --namespace="default" rc hello-webserver
+# Destroy the cluster
+gcloud container clusters delete devfest-ka15
 ```
