@@ -14,10 +14,8 @@ spec:
         name: "redis-slave"
     spec:
       containers:
-        -
-          name: "slave"
+        - name: "slave"
           image: "johscheuer/redis-slave:k8s"
           ports:
-            -
-              containerPort: 6379
+            - containerPort: 6379
               protocol: "TCP"

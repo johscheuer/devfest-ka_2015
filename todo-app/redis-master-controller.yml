@@ -14,10 +14,8 @@ spec:
         name: "redis-master"
     spec:
       containers:
-        -
-          name: "redis-master"
+        - name: "redis-master"
           image: "redis:3"
           ports:
-            -
-              containerPort: 6379
+            - containerPort: 6379
               protocol: "TCP"

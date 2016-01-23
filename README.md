@@ -135,7 +135,7 @@ kubectl get endpoints
 kubectl logs -f {pod id}
 
 # Make a rolling update without downtime
-kubectl rolling-update todo-app-web --image=johscheuer/todo-app-web:k8s_v2 --update-period="30s"
+kubectl rolling-update todo-app-web --image=johscheuer/todo-app-web:v2 --update-period="30s"
 ```
 
 ## Cleanup

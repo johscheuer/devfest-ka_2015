@@ -6,8 +6,7 @@ metadata:
     name: "todo-app-web"
 spec:
   ports:
-    -
-      port: 80
+    - port: 80
       targetPort: 3000
       protocol: "TCP"
   selector:

@@ -14,12 +14,10 @@ spec:
         name: "todo-app-web"
     spec:
       containers:
-        -
-          name: "todo-app-web"
-          image: "johscheuer/todo-app-web:k8s"
+        - name: "todo-app-web"
+          image: "johscheuer/todo-app-web:v1"
           ports:
-            -
-              containerPort: 3000
+            - containerPort: 3000
               protocol: "TCP"
           livenessProbe:
             httpGet:
